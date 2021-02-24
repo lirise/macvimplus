@@ -1,5 +1,3 @@
-![vimplus-logo][1]
-
 An automatic configuration program for vim
 ===============================================
 
