@@ -1,4 +1,4 @@
-An automatic configuration program for vim (Only for Mac OS)
+An Automatic Configuration Program For Vim (Only for Mac OS)
 ===============================================
 
 ![main][1]
