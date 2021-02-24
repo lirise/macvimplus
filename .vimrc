@@ -1,7 +1,7 @@
 "************************************************
 "# Author: lirise(alfangj@126.com)
 "# Create Time: 2021-02-07 18:05:53
-"# Modified Time: 2021-02-24 10:37:35 
+"# Modified Time: 2021-02-24 15:10:59 
 "************************************************
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,11 +65,10 @@ endfunc
 """"""""""""""""""""""""""""""""""""
 map <silent> <c-a-F4> :call CloseOthersBuffer()<CR>
 func! CloseOthersBuffer() 
-    let l:currentBufNum = bufnr("%") 
-    let l:alternateBufNum = bufnr("#") 
+    let s:CurrentBufferNumber = bufnr("%") 
   for i in range(1,bufnr("$")) 
     if buflisted(i) 
-     if i!=l:currentBufNum
+     if i!=s:CurrentBufferNumber
       execute("bdelete ".i)
      endif
     endif 
@@ -91,8 +90,8 @@ autocmd BufReadPre * execute ":only"
 map <silent> <F9> :call ChangeColorsCheme()<CR>   
 func! ChangeColorsCheme()
     silent! execute "!sh ~/.vim/colorstheme/GetColorsCheme.sh"
-    let g:unnamed = getreg()
-    silent! execute "colorscheme ".g:unnamed
+    let s:UnNamed = getreg()
+    silent! execute "colorscheme ".s:UnNamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F9删除当前ColorsCheme主题
@@ -111,8 +110,8 @@ map <c-F9> :colorscheme<CR>
 map <silent> <F10> :call ChangeAirLineTheme()<CR>   
 func! ChangeAirLineTheme()
     silent! execute "!sh ~/.vim/colorstheme/GetAirlineTheme.sh"
-    let g:unnamed = getreg()
-    silent! execute "AirlineTheme ".g:unnamed
+    let s:UnNamed = getreg()
+    silent! execute "AirlineTheme ".s:UnNamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F10删除AirLineTheme主题
@@ -241,7 +240,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 call plug#begin('~/.vim/plugged')
 Plug 'chxuan/cpp-mode'                                    "生成函数实现
 Plug 'chxuan/vim-edit'                                    "方便的文本编辑插件
-Plug 'flazz/vim-colorschemes'                             "vim主题包"
+Plug 'flazz/vim-colorschemes'                             "vim主题包
 Plug 'chxuan/vimplus-startify'                            "vimplus启动主题
 Plug 'chxuan/tagbar'                                      "显示类/方法/变量
 Plug 'Yggdroot/LeaderF'                                   "比ctrlp更强大的文件的模糊搜索工具
@@ -273,7 +272,7 @@ Plug 'Shougo/echodoc.vim'                                 "补全函数时在命
 Plug 'terryma/vim-smooth-scroll'                          "让翻页更顺畅
 Plug 'rhysd/clever-f.vim'                                 "强化f和F键
 Plug 'vim-scripts/indentpython.vim'                       "python代码自动缩进
-Plug 'yianwillis/vimcdoc'                                 "Vim中文帮助"
+Plug 'yianwillis/vimcdoc'                                 "Vim中文帮助
 Plug 'dense-analysis/ale'                                 "异步语法检查
 Plug 'SirVer/ultisnips'                                   "用户自定义补全
 Plug 'honza/vim-snippets'                                 "用户自定义补全
