@@ -1,7 +1,7 @@
 "************************************************
 "# Author: lirise(alfangj@126.com)
 "# Create Time: 2021-02-07 18:05:53
-"# Modified Time: 2021-02-24 11:38:24 
+"# Modified Time: 2021-02-24 15:10:59 
 "************************************************
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,11 +65,10 @@ endfunc
 """"""""""""""""""""""""""""""""""""
 map <silent> <c-a-F4> :call CloseOthersBuffer()<CR>
 func! CloseOthersBuffer() 
-    let l:currentBufNum = bufnr("%") 
-    let l:alternateBufNum = bufnr("#") 
+    let s:CurrentBufferNumber = bufnr("%") 
   for i in range(1,bufnr("$")) 
     if buflisted(i) 
-     if i!=l:currentBufNum
+     if i!=s:CurrentBufferNumber
       execute("bdelete ".i)
      endif
     endif 
@@ -91,8 +90,8 @@ autocmd BufReadPre * execute ":only"
 map <silent> <F9> :call ChangeColorsCheme()<CR>   
 func! ChangeColorsCheme()
     silent! execute "!sh ~/.vim/colorstheme/GetColorsCheme.sh"
-    let g:unnamed = getreg()
-    silent! execute "colorscheme ".g:unnamed
+    let s:UnNamed = getreg()
+    silent! execute "colorscheme ".s:UnNamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F9删除当前ColorsCheme主题
@@ -111,8 +110,8 @@ map <c-F9> :colorscheme<CR>
 map <silent> <F10> :call ChangeAirLineTheme()<CR>   
 func! ChangeAirLineTheme()
     silent! execute "!sh ~/.vim/colorstheme/GetAirlineTheme.sh"
-    let g:unnamed = getreg()
-    silent! execute "AirlineTheme ".g:unnamed
+    let s:UnNamed = getreg()
+    silent! execute "AirlineTheme ".s:UnNamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F10删除AirLineTheme主题
