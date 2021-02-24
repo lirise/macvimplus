@@ -39,64 +39,6 @@ An automatic configuration program for vim
 
 ### Linux 64-bit
 
-#### 支持以下发行版
-
-<table>
-<tr>
-<td><a href="https://distrowatch.com/table.php?distribution=ubuntu"><img src="https://distrowatch.com/images/yvzhuwbpy/ubuntu.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=ubuntukylin"><img src="https://distrowatch.com/images/yvzhuwbpy/ubuntukylin.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=debian"><img src="https://distrowatch.com/images/yvzhuwbpy/debian.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=kali"><img src="https://distrowatch.com/images/yvzhuwbpy/kali.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=deepin"><img src="https://distrowatch.com/images/yvzhuwbpy/deepin.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=mint"><img src="https://distrowatch.com/images/yvzhuwbpy/mint.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=elementary"><img src="https://distrowatch.com/images/yvzhuwbpy/elementary.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=centos"><img src="https://distrowatch.com/images/yvzhuwbpy/centos.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=fedora"><img src="https://distrowatch.com/images/yvzhuwbpy/fedora.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=arch"><img src="https://distrowatch.com/images/yvzhuwbpy/arch.png"/></a><p align="center"></p></td>
-</tr>
-<tr>
-<td><a href="https://distrowatch.com/table.php?distribution=manjaro"><img src="https://distrowatch.com/images/yvzhuwbpy/manjaro.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=opensuse"><img src="https://distrowatch.com/images/yvzhuwbpy/opensuse.png"/></a><p align="center"></p></td>
-</tr>
-</table>
-
-
-#### 安装vimplus
-
-    git clone https://github.com/chxuan/vimplus.git ~/.vimplus
-    cd ~/.vimplus
-    ./install.sh //不加sudo
-    
-#### 设置Nerd Font
-
-为防止vimplus显示乱码，需设置linux终端字体为`Droid Sans Mono Nerd Font`。
-
-#### 多用户支持
-
-将vimplus在某个用户下安装好后，若需要在其他用户也能够使用vimplus，则执行
-
-    sudo ./install_to_user.sh username1 username2 //替换为真实用户名
-    
-#### 更新vimplus
-
-紧跟vimplus的步伐，尝鲜新特性
-
-    ./update.sh
-
-
-### Docker
-
-[ubuntu-vimplus][79]是vimplus基于ubuntu18.04的docker镜像，无需安装vimplus，即可快速体验vimplus带来的快乐
-
-    docker run -it chxuan/ubuntu-vimplus
-    
-
-## 自定义
-
-> * [~/.vimrc][82]为vimplus的默认配置，一般不做修改
-> * [~/.vimrc.custom.plugins][83]为用户自定义插件列表，用户增加、卸载插件请修改该文件
-> * [~/.vimrc.custom.config][84]为用户自定义配置文件，一般性配置请放入该文件，可覆盖[~/.vimrc][82]里的配置
-
 
 ## 插件列表
 
