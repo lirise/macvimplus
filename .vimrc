@@ -1,7 +1,7 @@
 "************************************************
 "# Author: lirise(alfangj@126.com)
 "# Create Time: 2021-02-07 18:05:53
-"# Modified Time: 2021-02-23 19:19:46 
+"# Modified Time: 2021-02-24 11:38:24 
 "************************************************
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -59,8 +59,6 @@ func! CloseCurrentBuffer()
         if s:CurrentBufferNumber != s:NextBufferNumber
             silent! execute " bdelete " . s:CurrentBufferNumber
         endif
-        unlet! s:CurrentBufferNumber
-        unlet! s:NextBufferNumber
 endfunc
 """"""""""""""""""""""""""""""""""""
 "按Ctrl+Alt+<F4>删除除当前Buffer以外的所有Buffer
@@ -95,7 +93,6 @@ func! ChangeColorsCheme()
     silent! execute "!sh ~/.vim/colorstheme/GetColorsCheme.sh"
     let g:unnamed = getreg()
     silent! execute "colorscheme ".g:unnamed
-    unlet! g:unnamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F9删除当前ColorsCheme主题
@@ -116,7 +113,6 @@ func! ChangeAirLineTheme()
     silent! execute "!sh ~/.vim/colorstheme/GetAirlineTheme.sh"
     let g:unnamed = getreg()
     silent! execute "AirlineTheme ".g:unnamed
-    unlet! g:unnamed
 endfunc           
 """""""""""""""""""""""""""""""""""" 
 "按Alt+F10删除AirLineTheme主题
@@ -245,7 +241,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 call plug#begin('~/.vim/plugged')
 Plug 'chxuan/cpp-mode'                                    "生成函数实现
 Plug 'chxuan/vim-edit'                                    "方便的文本编辑插件
-Plug 'flazz/vim-colorschemes'                             "vim主题包"
+Plug 'flazz/vim-colorschemes'                             "vim主题包
 Plug 'chxuan/vimplus-startify'                            "vimplus启动主题
 Plug 'chxuan/tagbar'                                      "显示类/方法/变量
 Plug 'Yggdroot/LeaderF'                                   "比ctrlp更强大的文件的模糊搜索工具
@@ -277,7 +273,7 @@ Plug 'Shougo/echodoc.vim'                                 "补全函数时在命
 Plug 'terryma/vim-smooth-scroll'                          "让翻页更顺畅
 Plug 'rhysd/clever-f.vim'                                 "强化f和F键
 Plug 'vim-scripts/indentpython.vim'                       "python代码自动缩进
-Plug 'yianwillis/vimcdoc'                                 "Vim中文帮助"
+Plug 'yianwillis/vimcdoc'                                 "Vim中文帮助
 Plug 'dense-analysis/ale'                                 "异步语法检查
 Plug 'SirVer/ultisnips'                                   "用户自定义补全
 Plug 'honza/vim-snippets'                                 "用户自定义补全
@@ -524,7 +520,6 @@ func! AddFileHead()
     if s:WhetherFileHeadExists == 0
         exec ":call SetFileHead()"
     endif
-    unlet! s:WhetherFileHeadExists
 endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动更新文件修改时间
@@ -535,14 +530,17 @@ function AutoUpdateModifiedTime()
     call setpos('.', [0, 1, 1, 0])
     let s:WhetherAStringExists = search("# Modified Time: [0-9][0-9]", "nw") 
     if s:WhetherAStringExists != 0
-        if s:WhetherAStringExists < 6
+        let s:UperLimitNumber = 6
+        if s:WhetherAStringExists < s:UperLimitNumber
+           let s:CountNumber = line('$')
+           let s:ChangeNumber = s:UperLimitNumber
+           if s:CountNumber < s:ChangeNumber
+              let s:ChangeNumber = s:CountNumber
+           endif
            let s:Currenttime=strftime("%Y-%m-%d %H:%M:%S")
-           execute "1,6s/# Modified Time: [0-9].*/# Modified Time:"s:Currenttime"/g"
-           unlet! s:Currenttime
+           execute "1,"s:ChangeNumber"s/# Modified Time: [0-9].*/# Modified Time:"s:Currenttime"/g"
         endif 
     endif
     call setpos(".", s:CursorPosition)
-    unlet! s:CursorPosition
-    unlet! s:WhetherAStringExists
 endfunction
 
