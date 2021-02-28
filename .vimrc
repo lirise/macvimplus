@@ -1,7 +1,7 @@
 "************************************************
 "# Author: lirise(alfangj@126.com)
 "# Create Time: 2021-02-07 18:05:53
-"# Modified Time: 2021-02-24 15:10:59 
+"# Modified Time: 2021-02-26 22:31:46 
 "************************************************
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -24,17 +24,17 @@ set cursorline           " 高亮显示当前行
 set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
-""""""""""""""""""""""""""""""""""""  
+""""""""""""""""""""""""""""""""""""
 " 按F2打开关闭行号                    
-""""""""""""""""""""""""""""""""""""  
-map <silent> <F2> :call SetLineNumber()<CR>   
-func! SetLineNumber()                         
-    if &number!=0                     
-       exec "set nonumber"            
-    else                              
-        exec "set number"             
-    endif                             
-endfunc                             
+""""""""""""""""""""""""""""""""""""
+map <silent> <F2> :call SetLineNumber()<CR>
+func! SetLineNumber()
+    if &number!=0
+       exec "set nonumber"
+   else
+        exec "set number"
+    endif
+endfunc
 """""""""""""""""""""""""""""""""""" 
 " 鼠标支持
 """""""""""""""""""""""""""""""""""" 
@@ -75,13 +75,13 @@ func! CloseOthersBuffer()
   endfor
 endfunc
 """"""""""""""""""""""""""""""""""""
-"按Alt+<F2>进入下一个Buffer
+"按<tab>键进入下一个Buffer
 """"""""""""""""""""""""""""""""""""
-nmap <a-F2> :bn<cr>
+nmap <tab> :bn<cr>
 """"""""""""""""""""""""""""""""""""
 "自动只显示一个Buffer
 """"""""""""""""""""""""""""""""""""
-autocmd BufReadPre * execute ":only"
+map <silent> <a-F2> :only<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 主题相关设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,7 +103,7 @@ endfunc
 """""""""""""""""""""""""""""""""""" 
 "按Ctrl+F9显示当前ColorsCheme主题名
 """"""""""""""""""""""""""""""""""""
-map <c-F9> :colorscheme<CR>
+map <silent> <c-F9> :colorscheme<CR>
 """""""""""""""""""""""""""""""""""" 
 "按F10切换Airline主题
 """""""""""""""""""""""""""""""""""" 
@@ -121,45 +121,50 @@ func! DeleteAirLineTheme()
     silent! execute "!sh ~/.vim/colorstheme/DeleteAirLineTheme.sh"
 endfunc
 """""""""""""""""""""""""""""""""""" 
-"按Ctrl+F10显示当前ColorsCheme主题名
+"按Ctrl+F10显示当前AirlineTheme主题名
 """"""""""""""""""""""""""""""""""""
-map <c-F10> :AirlineTheme<CR>
+map <silent> <c-F10> :AirlineTheme<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 编译调试相关
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "C，C++ 等按F5编译运行
 """"""""""""""""""""""""""""""""""""
-map <F5> :call CompileProgram()<CR>
+map <silent> <F5> :call CompileProgram()<CR>
  func! CompileProgram()
-     exec "w"
     if &filetype == 'c'
-        exec "!gcc % -o %<"
+        exec "w"
+        exec "!clang % -o %<"
         exec "! ./%<"
     elseif &filetype == 'cpp'
-        exec "!g++ % -o %<"
+        exec "w"
+        exec "!clang % -o %<"
         exec "! ./%<"
     elseif &filetype == 'java'
+        exec "w"
         exec "!javac %"
         exec "!java %<"
-     elseif &filetype == 'sh'
+    elseif &filetype == 'sh'
+        exec "w"
         exec "!chmod 0755 ./%"
-        exec "! ./%"
-     elseif &filetype == 'python'
-        exec "!time python2.7 %"
+        exec "!./%"
+    elseif &filetype == 'python'
+        exec "w"
+        exec "!time python3 %"
     endif
  endfunc
 """"""""""""""""""""""""""""""""""""
 " C,C++按F8调试
 """"""""""""""""""""""""""""""""""""
-map <F8> :call DebugProgram()<CR>
+map <silent> <F8> :call DebugProgram()<CR>
 func! DebugProgram()
-    exec "w"
     if &filetype == 'c'
+       exec "w"
        exec "!gcc % -g -o %<"
        exec "!lldb ./%<"
    elseif &filetype == 'cpp'
-        exec "!g++ % -g -o %<"
-        exec "!lldb ./%<"
+       exec "w"
+       exec "!g++ % -g -o %<"
+       exec "!lldb ./%<"
     endif
 endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -176,13 +181,18 @@ set shiftwidth=4         " 设置格式化时制表符占用空格数
 set softtabstop=4        " 设置4个空格为制表符
 set smarttab             " 在行和段开始处使用制表符
 set nowrap               " 禁止折行
+set backspace=2          " 使用回车键正常处理indent,eol,start等
 set sidescroll=10        " 设置向右滚动字符数
+set scrolloff=7          " 代码最后保留7行，否则滚动
 set nofoldenable         " 禁用折叠代码
+set foldmethod=syntax   " 设置基于语法进行代码折叠
+set formatoptions+=mM    " 在断行、合并(join)行时，针对多字节字符（比如中文）的优化处理
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码补全
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmenu             " vim自身命名行模式智能补全
 set completeopt-=preview " 补全时不显示窗口，只显示补全列表
+set wildmode=list:longest "设置补全方式
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 搜索设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -309,7 +319,6 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 let g:airline_theme="onedark"                              "设置airline主题
 let g:airline_powerline_fonts = 1                          "使用powerline字体
 let g:airline#extensions#tabline#enabled = 1               "打开tabline
-nmap <s-F10> :AirlineTheme<cr>
  
 " cpp-mode
 nnoremap <leader>y :CopyCode<cr>
@@ -334,6 +343,10 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1 
 let NERDTreeShowHidden=1                                   "显示隐藏文件/文件夹设置"
 let g:nerdtree_tabs_autoclose = 1 
+
+" vim-devicons
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
 
 " tagbar
 let g:tagbar_width = 30
@@ -427,9 +440,9 @@ let g:ale_linters = {
 let g:UltiSnipsSnippetDirectories = ['~/.vim/ultisnips', 'UltiSnips']
 let g:UltiSnipsExpandTrigger = "<a-space>"
 "let g:UltiSnipsJumpForwardTrigger = "<a-space>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 设置文件头
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -529,7 +542,7 @@ function AutoUpdateModifiedTime()
     call setpos('.', [0, 1, 1, 0])
     let s:WhetherAStringExists = search("# Modified Time: [0-9][0-9]", "nw") 
     if s:WhetherAStringExists != 0
-        let s:UperLimitNumber = 6
+        let s:UperLimitNumber = 8
         if s:WhetherAStringExists < s:UperLimitNumber
            let s:CountNumber = line('$')
            let s:ChangeNumber = s:UperLimitNumber
