@@ -28,6 +28,6 @@ An Automatic Configuration Program For Vim (Only for Mac OS)
     ./update.sh
     
 
-  [1]: https://raw.githubusercontent.com/lirise/macvimplus/master/screenshots/main.png
+  [1]: https://gitee.com/lirise/macvimplus/raw/master/screenshots/main.png
   [2]: https://brew.sh/
  
